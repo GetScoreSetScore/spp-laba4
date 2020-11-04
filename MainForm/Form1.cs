@@ -15,7 +15,7 @@ namespace MainForm
     public partial class MainForm : Form
     {
 
-        string path = @"D:\University\3course\5semester\SPP\labs\laba4\MainForm\bin\Debug\plugins";
+        string path = Environment.CurrentDirectory+@"\plugins";
         public MainForm()
         {
             InitializeComponent();
@@ -27,6 +27,7 @@ namespace MainForm
                 
                 foreach (var fileInfo in new DirectoryInfo(path).GetFiles())
                 {
+                    if(fileInfo.Extension==".dll")
                     try
                     {
                         Assembly assembly = Assembly.LoadFile(fileInfo.FullName);
@@ -49,9 +50,6 @@ namespace MainForm
                     {
                         switch (attribute)
                         {
-                            case AnchorAttribute atr:
-                                AddToAnchor(atr,type);
-                                break;
                             case LTRPanelAttribute _:
                                 AddToLTRPanel(type);
                                 break;
@@ -62,47 +60,34 @@ namespace MainForm
                                 AddToTabControl(type);
                                 break;
                             case VerticalPanelAttribute _:
-                                AddToVerticalControl(type);
+                                AddToVerticalPanel(type);
                                 break;
                         }
                     }
                 }
             }
         }
-        void AddToAnchor(AnchorAttribute atr, Type formtype)//todo
-        {
-            Form form = (Form)formtype.GetConstructor(new Type[0]).Invoke(null);
-            form.Hide();
-            form.FormBorderStyle = FormBorderStyle.None;
-            TabPage tp = new TabPage();
-            tp.Text = form.Text;
-            TabControl_Main.TabPages.Add(tp);
-            form.TopLevel = false;
-            form.Parent = tp;
-            form.Show();
-        }
         void AddToLTRPanel(Type formtype)//todo
         {
+            /*Form form = (Form)formtype.GetConstructor(new Type[0]).Invoke(null);
+            form.Hide();
+            var controls = new Control[form.Controls.Count];
+            form.Controls.CopyTo(controls, 0);
+            FlowLayoutPanel_LTRToolbox.Controls.AddRange(controls);*/
             Form form = (Form)formtype.GetConstructor(new Type[0]).Invoke(null);
             form.Hide();
-            form.FormBorderStyle = FormBorderStyle.None;
-            TabPage tp = new TabPage();
-            tp.Text = form.Text;
-            TabControl_Main.TabPages.Add(tp);
             form.TopLevel = false;
-            form.Parent = tp;
+            form.Parent = FlowLayoutPanel_LTRToolbox;
+            form.FormBorderStyle = FormBorderStyle.None;
             form.Show();
         }
         void AddToRTLPanel(Type formtype)//todo
         {
             Form form = (Form)formtype.GetConstructor(new Type[0]).Invoke(null);
             form.Hide();
-            form.FormBorderStyle = FormBorderStyle.None;
-            TabPage tp = new TabPage();
-            tp.Text = form.Text;
-            TabControl_Main.TabPages.Add(tp);
             form.TopLevel = false;
-            form.Parent = tp;
+            form.Parent = FlowLayoutPanel_RTLToolbox;
+            form.FormBorderStyle = FormBorderStyle.None;
             form.Show();
         }
         void AddToTabControl(Type formtype)
@@ -121,12 +106,9 @@ namespace MainForm
         {
             Form form = (Form)formtype.GetConstructor(new Type[0]).Invoke(null);
             form.Hide();
-            form.FormBorderStyle = FormBorderStyle.None;
-            TabPage tp = new TabPage();
-            tp.Text = form.Text;
-            TabControl_Main.TabPages.Add(tp);
             form.TopLevel = false;
-            form.Parent = tp;
+            form.Parent = FlowLayoutPanel_Vertical;
+            form.FormBorderStyle = FormBorderStyle.None;
             form.Show();
         }
     }

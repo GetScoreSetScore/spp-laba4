@@ -8,21 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ExtensionAttributes;
-namespace ToolExtension
+namespace vertical
 {
-    [LTRPanel]
-    [RTLPanel]
     [VerticalPanel]
-    public partial class ToolForm : Form
+    public partial class verticalmain : Form
     {
-        public ToolForm()
+        public verticalmain()
         {
             InitializeComponent();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Button " + button1.Text + " was clicked in form" + ActiveForm.Text);
         }
     }
 }
