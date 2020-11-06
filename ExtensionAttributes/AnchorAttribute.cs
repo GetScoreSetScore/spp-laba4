@@ -9,11 +9,14 @@ namespace ExtensionAttributes
     [AttributeUsage(AttributeTargets.Class)]
     public class AnchorAttribute : Attribute
     {
-        public enum Anchor { Top=1, Bottom,Left,Right, }
-        public Anchor anchor;
-        public AnchorAttribute(Anchor anch)
+        public enum VerAnchor { Top,Center,Bottom }
+        public VerAnchor vanchor;
+        public enum HorAnchor { Left,Center,Right}
+        public HorAnchor hanchor;
+        public AnchorAttribute(VerAnchor vanch,HorAnchor hanch)
         {
-            anchor = anch;
+            vanchor = vanch;
+            hanchor = hanch;
         }
     }
 }

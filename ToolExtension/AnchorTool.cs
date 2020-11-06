@@ -10,20 +10,15 @@ using System.Windows.Forms;
 using ExtensionAttributes;
 namespace ToolExtension
 {
+    [Anchor(AnchorAttribute.VerAnchor.Bottom,AnchorAttribute.HorAnchor.Left)]
+    [VerticalPanel]
     [LTRPanel]
     [RTLPanel]
-    [VerticalPanel]
-    [Anchor(AnchorAttribute.VerAnchor.Center,AnchorAttribute.HorAnchor.Right)]
-    public partial class ToolForm : Form
+    public partial class AnchorTool : Form
     {
-        public ToolForm()
+        public AnchorTool()
         {
             InitializeComponent();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Button " + button1.Text + " was clicked in form" + ActiveForm.Text);
         }
     }
 }

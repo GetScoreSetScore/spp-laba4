@@ -53,6 +53,9 @@ namespace MainForm
                             case LTRPanelAttribute _:
                                 AddToLTRPanel(type);
                                 break;
+                            case AnchorAttribute atr:
+                                AddToAnchorTable(atr,type);
+                                break;
                             case RTLPanelAttribute _:
                                 AddToRTLPanel(type);
                                 break;
@@ -69,15 +72,21 @@ namespace MainForm
         }
         void AddToLTRPanel(Type formtype)//todo
         {
-            /*Form form = (Form)formtype.GetConstructor(new Type[0]).Invoke(null);
-            form.Hide();
-            var controls = new Control[form.Controls.Count];
-            form.Controls.CopyTo(controls, 0);
-            FlowLayoutPanel_LTRToolbox.Controls.AddRange(controls);*/
             Form form = (Form)formtype.GetConstructor(new Type[0]).Invoke(null);
             form.Hide();
             form.TopLevel = false;
             form.Parent = FlowLayoutPanel_LTRToolbox;
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Show();
+        }
+        void AddToAnchorTable(AnchorAttribute atr,Type formtype)//todo
+        {
+            Form form = (Form)formtype.GetConstructor(new Type[0]).Invoke(null);
+            form.Hide();
+            form.TopLevel = false;
+            form.Parent = TableLayoutPanel_Anchoring;
+            form.Anchor=AnchorStyles.Left|AnchorStyles.Right|AnchorStyles.Top|AnchorStyles.Bottom;
+            TableLayoutPanel_Anchoring.SetCellPosition(form, new TableLayoutPanelCellPosition((int)atr.hanchor, (int)atr.vanchor));
             form.FormBorderStyle = FormBorderStyle.None;
             form.Show();
         }
